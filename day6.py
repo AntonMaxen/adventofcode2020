@@ -1,4 +1,4 @@
-def main():
+def get_groups():
     with open("files/day6input.txt") as my_file:
         lines = [line.strip() for line in my_file.readlines()]
     groups = []
@@ -12,6 +12,11 @@ def main():
 
     if group:
         groups.append(group)
+
+    return groups
+
+def part_one():
+    groups = get_groups()
 
     alfabet = "abcdefghijklmnopqrstuvwxyz"
     groups_score = []
@@ -32,19 +37,7 @@ def main():
 
 
 def part_two():
-    with open("files/day6input.txt") as my_file:
-        lines = [line.strip() for line in my_file.readlines()]
-    groups = []
-    group = []
-    for line in lines:
-        if line == '':
-            groups.append(group)
-            group = []
-        else:
-            group.append(line)
-
-    if group:
-        groups.append(group)
+    groups = get_groups()
 
     alfabet = "abcdefghijklmnopqrstuvwxyz"
     groups_score = []
@@ -65,5 +58,5 @@ def part_two():
 
 
 if __name__ == "__main__":
-    print(main())
+    print(part_one())
     print(part_two())
