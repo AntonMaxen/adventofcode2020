@@ -162,6 +162,7 @@ def connect_tiles(sides):
 
     return placed_tiles
 
+
 def combine_tiles(tiles):
     columns = []
     rows = []
@@ -191,6 +192,7 @@ def print_coords(rows):
     for row in rows:
         print(str(len(row)) + ": " + " ".join([str(c["coord"]) for c in row]))
 
+
 def find_matches(rows):
     second = re.compile("(#....##....##....###)")
     third  = re.compile("(.#..#..#..#..#..#...)")
@@ -214,6 +216,7 @@ def find_matches(rows):
                     matches += 1
 
     return matches
+
 
 def sum_sqrs(tile):
     return len([c for row in tile for c in row if c == "#"])
@@ -241,8 +244,8 @@ def main():
 
     matches.sort(reverse=True)
 
-
     return sum_sqrs(big_tile) - (matches[0] * sqrs_per_monster)
+
 
 if __name__ == '__main__':
     print(main())
