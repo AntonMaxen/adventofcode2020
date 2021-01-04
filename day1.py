@@ -1,5 +1,6 @@
 with open("files/day1input.txt") as my_file:
     content = [int(line) for line in my_file.readlines()]
+
 wanted_sum = 2020
 sum_correct = []
 for x, x_line in enumerate(content):

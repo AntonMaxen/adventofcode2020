@@ -1,5 +1,3 @@
-import copy
-import functools
 import re
 
 
@@ -17,17 +15,17 @@ def setup():
 
     sides = []
     for tile in tiles:
-        side = {}
-        side["id"] = tile[0].replace("Tile ", "").replace(":", "").strip()
-        side["up"] = tile[1]
-        side["down"] = tile[-1]
-        side["left"] = "".join([char[0] for index, char in enumerate(tile) if index != 0])
-        side["right"] = "".join([char[-1] for index, char in enumerate(tile) if index != 0])
-        side["full"] = [line for index, line in enumerate(tile) if index != 0]
+        side = {
+            "id": tile[0].replace("Tile ", "").replace(":", "").strip(),
+            "up": tile[1], "down": tile[-1],
+            "left": "".join([char[0] for index, char in enumerate(tile) if index != 0]),
+            "right": "".join([char[-1] for index, char in enumerate(tile) if index != 0]),
+            "full": [line for index, line in enumerate(tile) if index != 0],
+            "rotation": 0,
+            "flipped_horisontal": False,
+            "flipped_vertical": False
+        }
         side["full"] = remove_borders(side["full"])
-        side["rotation"] = 0
-        side["flipped_horisontal"] = False
-        side["flipped_vertical"] = False
         sides.append(side)
 
     return sides
@@ -95,7 +93,6 @@ def rotate(tile, rotations):
         tile["down"] = temp_right[::-1]
         tile["left"] = temp_down
 
-
         tile["full"] = rotate_tile(tile["full"])
 
 
@@ -109,12 +106,14 @@ def rotate_tile(tile):
 
     return new_tile
 
+
 def flip_tile_horisontal(tile):
     return [t[::-1] for t in tile]
 
 
 def flip_tile_vertical(tile):
     return tile[::-1]
+
 
 def flip_horisontal(tile):
     tile["flipped_horisontal"] = not tile["flipped_horisontal"]
@@ -195,7 +194,7 @@ def print_coords(rows):
 
 def find_matches(rows):
     second = re.compile("(#....##....##....###)")
-    third  = re.compile("(.#..#..#..#..#..#...)")
+    third = re.compile("(.#..#..#..#..#..#...)")
     patterns = [second, third]
     matches = 0
     for y in range(len(rows) - 2):
@@ -225,7 +224,7 @@ def sum_sqrs(tile):
 def main():
     sides = setup()
     placed_tiles = connect_tiles(sides)
-    placed_tiles.sort(key=lambda t:(t["coord"][1], t["coord"][0]))
+    placed_tiles.sort(key=lambda t: (t["coord"][1], t["coord"][0]))
     rows = combine_tiles(placed_tiles)
     big_tile = create_big_tile(rows)
     sqrs_per_monster = 15
