@@ -1,3 +1,4 @@
 something funny
 something really funny
 somthing more funny
+Testing git on new ubuntu setup
